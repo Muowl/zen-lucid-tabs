@@ -24,12 +24,24 @@ Configurable from the Zen Mods settings page:
 
 ## Install
 
+**As a Zen Mod (recommended — enables the preferences UI):**
+
+```powershell
+git clone https://github.com/Muowl/zen-lucid-tabs
+cd zen-lucid-tabs
+.\install.ps1        # close Zen first; restart it afterwards
+```
+
+The script sideloads the mod into your most recently used Zen profile: it copies the files into `chrome/zen-themes/<id>/`, registers the entry in `zen-themes.json`, and rebuilds the compiled `chrome/zen-themes.css` that Zen injects at startup. Use `-ProfilePath` to target a specific profile, `-Uninstall` to remove. Re-run it after editing `chrome.css` to apply changes (or toggle the mod off/on in the Zen Mods settings page).
+
+> Sideloading is required because the Zen Mods **Import mods** button only installs mods published in the official theme store — it looks the mod up by id and silently fails for anything else.
+
 **Manual (userChrome.css):**
 1. `about:support` → Open Profile Folder → create `chrome/userChrome.css`
 2. Paste the contents of `chrome.css`
 3. Enable `toolkit.legacyUserProfileCustomizations.stylesheets` in `about:config` and restart
 
-Preference-based options require installing as a Zen Mod (import/store); with plain `userChrome.css`, edit the CSS variables at the top of the file instead.
+The preferences UI is only available when installed as a Zen Mod; with plain `userChrome.css`, edit the CSS variables at the top of the file instead.
 
 ## Compatibility
 
