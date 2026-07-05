@@ -1,0 +1,97 @@
+/* ==========================================================================
+   Zen Lucid Tabs
+   Unloaded tabs that stay visible — dimmed, but never invisible.
+   https://github.com/muowl/zen-lucid-tabs
+   ========================================================================== */
+
+:root {
+  /* Tweak everything from here */
+  --lucid-accent: var(--zen-primary-color, currentColor);
+  --lucid-opacity: 0.65;
+  --lucid-opacity-compact: 0.85;
+  --lucid-grayscale: 1;
+  --lucid-grayscale-compact: 0.75;
+  --lucid-ring: color-mix(in srgb, var(--lucid-accent) 35%, transparent);
+  --lucid-ring-strong: color-mix(in srgb, var(--lucid-accent) 50%, transparent);
+  --lucid-glow: color-mix(in srgb, var(--lucid-accent) 20%, transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Normal tabs (expanded sidebar)
+   -------------------------------------------------------------------------- */
+.tabbrowser-tab[pending="true"] {
+  opacity: var(--lucid-opacity);
+  filter: grayscale(var(--lucid-grayscale));
+  transition: opacity 0.15s ease, filter 0.15s ease;
+}
+
+.tabbrowser-tab[pending="true"] .tab-background {
+  box-shadow:
+    inset 0 0 0 1px var(--lucid-ring),
+    0 0 6px var(--lucid-glow);
+}
+
+/* Restore presence on hover — the tab "wakes up" before the click */
+.tabbrowser-tab[pending="true"]:hover {
+  opacity: 0.9;
+  filter: grayscale(0.4);
+}
+
+/* --------------------------------------------------------------------------
+   Essentials (icon-only tabs)
+   The favicon is the tab's whole identity here: dim less, ring harder,
+   keep a hint of the favicon's color.
+   TODO: confirmar o atributo no Browser Toolbox na sua versão do Zen —
+   candidatos: tab[zen-essential="true"], .zen-essentials-container tab
+   -------------------------------------------------------------------------- */
+tab[zen-essential="true"][pending="true"] {
+  opacity: var(--lucid-opacity-compact);
+  filter: grayscale(var(--lucid-grayscale-compact));
+}
+
+tab[zen-essential="true"][pending="true"] .tab-background {
+  box-shadow: inset 0 0 0 1.5px var(--lucid-ring-strong);
+}
+
+/* --------------------------------------------------------------------------
+   Collapsed sidebar (normal tabs rendered icon-only)
+   TODO: confirmar o atributo no Browser Toolbox — candidatos:
+   :root[zen-sidebar-expanded="false"], #navigator-toolbox[zen-sidebar-expanded]
+   -------------------------------------------------------------------------- */
+:root[zen-sidebar-expanded="false"] .tabbrowser-tab[pending="true"] {
+  opacity: var(--lucid-opacity-compact);
+  filter: grayscale(var(--lucid-grayscale-compact));
+}
+
+:root[zen-sidebar-expanded="false"] .tabbrowser-tab[pending="true"] .tab-background {
+  box-shadow: inset 0 0 0 1.5px var(--lucid-ring-strong);
+}
+
+/* ==========================================================================
+   Preferences integration (Zen Mods settings page)
+   ========================================================================== */
+
+/* mod.lucid-tabs.keep-color: skip grayscale entirely, dim with opacity only */
+@media (-moz-bool-pref: "mod.lucid-tabs.keep-color") {
+  .tabbrowser-tab[pending="true"],
+  tab[zen-essential="true"][pending="true"],
+  :root[zen-sidebar-expanded="false"] .tabbrowser-tab[pending="true"] {
+    filter: none;
+  }
+}
+
+/* mod.lucid-tabs.style = "dashed": literal "empty shell" outline
+   Dropdown values land as attributes on :root (dots become hyphens) */
+:root[mod-lucid-tabs-style="dashed"] .tabbrowser-tab[pending="true"] .tab-background,
+:root[mod-lucid-tabs-style="dashed"] tab[zen-essential="true"][pending="true"] .tab-background {
+  box-shadow: none;
+  outline: 1px dashed var(--lucid-ring-strong);
+  outline-offset: -1px;
+}
+
+/* mod.lucid-tabs.style = "none": dimming only, no indicator */
+:root[mod-lucid-tabs-style="none"] .tabbrowser-tab[pending="true"] .tab-background,
+:root[mod-lucid-tabs-style="none"] tab[zen-essential="true"][pending="true"] .tab-background {
+  box-shadow: none;
+  outline: none;
+}

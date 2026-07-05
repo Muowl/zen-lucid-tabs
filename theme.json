@@ -1,0 +1,8 @@
+{
+  "name": "Lucid Tabs",
+  "description": "Unloaded tabs that stay visible: dimmed with an accent-colored ring instead of fading into dark themes. Adapts to icon-only tabs (Essentials / collapsed sidebar).",
+  "homepage": "https://github.com/muowl/zen-lucid-tabs",
+  "author": "muowl",
+  "version": "0.1.0",
+  "tags": ["tabs", "unloaded", "accessibility", "dark-theme"]
+}

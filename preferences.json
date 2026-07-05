@@ -1,0 +1,20 @@
+[
+  {
+    "property": "mod.lucid-tabs.style",
+    "label": "Indicator style for unloaded tabs",
+    "type": "dropdown",
+    "placeholder": "Select a style",
+    "defaultValue": "glow",
+    "options": [
+      { "label": "Accent ring + glow", "value": "glow" },
+      { "label": "Dashed outline", "value": "dashed" },
+      { "label": "None (dim only)", "value": "none" }
+    ]
+  },
+  {
+    "property": "mod.lucid-tabs.keep-color",
+    "label": "Keep favicon colors (disable grayscale)",
+    "type": "checkbox",
+    "defaultValue": false
+  }
+]
